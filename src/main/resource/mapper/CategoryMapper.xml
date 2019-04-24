@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssm.tmall.mapper.CategoryMapper">
+    <resultMap id="BaseResultMap" type="com.ssm.tmall.pojo.Category">
+        <id column="id" property="id" jdbcType="DECIMAL"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="list" parameterType="com.ssm.tmall.util.Page" resultType="Category" resultMap="BaseResultMap">
+        SELECT * FROM category ORDER BY id DESC
+        <if test="start != null and count != null">
+            limit #{start,jdbcType=DECIMAL},#{count,jdbcType=DECIMAL}
+        </if>
+    </select>
+
+    <select id="total" resultType="int">
+        SELECT COUNT(*) FROM category
+    </select>
+</mapper>
